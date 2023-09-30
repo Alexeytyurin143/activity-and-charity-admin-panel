@@ -1,0 +1,17 @@
+.employees {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.list__item {
+    display: flex;
+    gap: 50px;
+    padding: 10px;
+    background-color: lightgray;
+}
+
+.title {
+    font-size: 24px;
+}

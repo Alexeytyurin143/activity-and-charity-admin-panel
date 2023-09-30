@@ -1,0 +1,11 @@
+.list__item {
+    display: flex;
+    gap: 50px;
+    padding: 10px;
+    background-color: lightgray;
+}
+.companies {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
