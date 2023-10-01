@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import styles from './CreateFund.module.scss'
+import { requestPostFund } from '../../../redux/main-reducer'
+import { connect } from 'react-redux'
 
-export const CreateFund = () => {
-    const [fund, setFund] = useState({
+const CreateFundComponent = ({requestPostFund}) => {
+    const [fundForm, setFundForm] = useState({
         fundname: '',
-        password: '',
         checkingAccount: 0,
         inn: 0,
         description: '',
@@ -13,12 +14,12 @@ export const CreateFund = () => {
     const submitHandler = (e) => {
         e.preventDefault()
         let newFund = {
-            fundname: fund.fundname,
-            password: fund.password,
-            checkingAccount: Number(fund.checkingAccount),
-            inn: Number(fund.inn),
-            description: fund.description,
+            fundname: fundForm.fundname,
+            checkingAccount: Number(fundForm.checkingAccount),
+            inn: Number(fundForm.inn),
+            description: fundForm.description,
         }
+        requestPostFund(newFund)
         console.log(newFund)
     }
 
@@ -28,7 +29,7 @@ export const CreateFund = () => {
             <input
                 className={styles.input}
                 onChange={(e) => {
-                    setFund({ ...fund, fundname: e.target.value })
+                    setFundForm({ ...fundForm, fundname: e.target.value })
                 }}
                 type='text'
                 placeholder='Введите название фонда'
@@ -36,15 +37,7 @@ export const CreateFund = () => {
             <input
                 className={styles.input}
                 onChange={(e) => {
-                    setFund({ ...fund, password: e.target.value })
-                }}
-                type='text'
-                placeholder='Введите пароль для админ-панели фонда'
-            />
-            <input
-                className={styles.input}
-                onChange={(e) => {
-                    setFund({ ...fund, inn: e.target.value })
+                    setFundForm({ ...fundForm, inn: e.target.value })
                 }}
                 type='text'
                 placeholder='Введите ИНН фонда'
@@ -52,7 +45,7 @@ export const CreateFund = () => {
             <input
                 className={styles.input}
                 onChange={(e) => {
-                    setFund({ ...fund, checkingAccount: e.target.value })
+                    setFundForm({ ...fundForm, checkingAccount: e.target.value })
                 }}
                 type='text'
                 placeholder='Введите расчётный счёт фонда'
@@ -61,7 +54,7 @@ export const CreateFund = () => {
                 name='description'
                 placeholder='Введите описание фонда'
                 onChange={(e) => {
-                    setFund({ ...fund, description: e.target.value })
+                    setFundForm({ ...fundForm, description: e.target.value })
                 }}
                 cols='30'
                 rows='10'
@@ -70,3 +63,9 @@ export const CreateFund = () => {
         </form>
     )
 }
+
+const mapStateToProps = (state) => ({
+    fund: state.main.fund,
+})
+
+export const CreateFund = connect(mapStateToProps, { requestPostFund })(CreateFundComponent)

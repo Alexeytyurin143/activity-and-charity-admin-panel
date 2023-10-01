@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://45.95.234.99:8080',
     headers: {
         'Content-Type': 'application/json',
     },
@@ -9,11 +9,19 @@ const instance = axios.create({
 
 export const mainAPI = {
     getAllUsers() {
-        return instance.get('/users/getAllUsers')
+        return instance.get('api/users/getAllUsers')
     },
 
     getAllFunds() {
         return instance.get('/api/funds/getAllFunds')
+    },
+
+    getAllCompanies() {
+        return instance.get('/api/companies/getAllCompanies')
+    },
+
+    saveFund() {
+        return instance.post('/api/funds/saveFund', object)
     },
 
     getAllCompanies() {
