@@ -4,12 +4,14 @@ const SET_USERS = 'SET_USERS'
 const SET_COMPANIES = 'SET_COMPANIES'
 const SET_FUNDS = 'SET_FUNDS'
 const POST_FUND = 'POST_FUND'
+const POST_COMPANY = 'POST_COMPANY'
 
 const initialState = {
 	users: [],
 	companies: [],
 	funds: [],
 	fund: {},
+	company: {},
 }
 
 export const mainReducer = (state = initialState, action) => {
@@ -26,6 +28,9 @@ export const mainReducer = (state = initialState, action) => {
 		case POST_FUND:
 			return { ...state, fund: action.fund }
 
+		case POST_COMPANY:
+			return { ...state, company: action.company }
+
 		default:
 			return state
 	}
@@ -35,6 +40,17 @@ const setUsers = (users) => ({ type: SET_USERS, users })
 const setCompanies = (companies) => ({ type: SET_COMPANIES, companies })
 const setFunds = (funds) => ({ type: SET_FUNDS, funds })
 const postFund = (fund) => ({ type: POST_FUND, fund })
+const postCompany = (company) => ({ type: POST_FUND, company })
+
+export const requestPostCompany = (object) => async (dispatch) => {
+	const response = await mainAPI.saveCompany(object)
+
+	if (response.status === 200) {
+		dispatch(postCompany(response.data))
+	} else {
+		console.log(response)
+	}
+}
 
 export const requestPostFund = (object) => async (dispatch) => {
 	const response = await mainAPI.saveFund(object)

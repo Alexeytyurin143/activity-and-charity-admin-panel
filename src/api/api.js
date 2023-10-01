@@ -20,11 +20,11 @@ export const mainAPI = {
         return instance.get('/api/companies/getAllCompanies')
     },
 
-    saveFund() {
+    saveFund(object) {
         return instance.post('/api/funds/saveFund', object)
     },
 
-    getAllCompanies() {
-        return instance.get('/api/companies/getAllCompanies')
+    saveCompany(object) {
+        return instance.get('/api/companies/saveCompany', object)
     },
 }

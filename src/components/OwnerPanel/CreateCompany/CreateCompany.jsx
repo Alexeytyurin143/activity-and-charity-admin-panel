@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import styles from './CreateCompany.module.scss'
+import { requestPostCompany } from '../../../redux/main-reducer'
+import { connect } from 'react-redux'
 
-export const CreateCompany = () => {
-    const [company, setCompany] = useState({
-        companyname: 'string',
-        password: 'string',
+const CreateCompanyForm = ({requestPostCompany}) => {
+    const [companyForm, setCompanyForm] = useState({
+        companyname: '',
+        password: '',
         employees: [],
     })
 
     const submitHandler = (e) => {
         e.preventDefault()
-        console.log(company)
+        requestPostCompany(companyForm)
+        console.log(companyForm)
     }
 
     return (
@@ -19,7 +22,7 @@ export const CreateCompany = () => {
             <input
                 className={styles.input}
                 onChange={(e) => {
-                    setCompany({ ...company, companyname: e.target.value })
+                    setCompanyForm({ ...companyForm, companyname: e.target.value })
                 }}
                 type='text'
                 placeholder='Введите название компании'
@@ -27,7 +30,7 @@ export const CreateCompany = () => {
             <input
                 className={styles.input}
                 onChange={(e) => {
-                    setCompany({ ...company, password: e.target.value })
+                    setCompanyForm({ ...companyForm, password: e.target.value })
                 }}
                 type='text'
                 placeholder='Введите пароль для админ-панели компании'
@@ -36,3 +39,9 @@ export const CreateCompany = () => {
         </form>
     )
 }
+
+const mapStateToProps = (state) => ({
+    company: state.main.company,
+})
+
+export const CreateCompany = connect(mapStateToProps, { requestPostCompany })(CreateCompanyForm)
